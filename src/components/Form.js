@@ -3,7 +3,8 @@ import RNPickerSelect from 'react-native-picker-select';
 import { StyleSheet, TextInput, View } from 'react-native';
 import colors from '../utils/colors';
 
-export default function Form() {
+export default function Form(props) {
+    const { setcapital, setinteres, setmeses } = props;
     return (
         <View style={styles.viewform}>
             <View style={styles.viewInputs}>
@@ -11,24 +12,35 @@ export default function Form() {
                     placeholder='Monto solicitado'
                     keyboardType='numeric'
                     style={styles.input}
+                    onChange={event => setcapital(event.nativeEvent.text)}
                 />
                 <TextInput
-                    placeholder='Interes'
+                    placeholder='Interes %'
                     keyboardType='numeric'
                     style={[styles.input, styles.inputPorcentage]}
+                    onChange={e => setinteres(e.nativeEvent.text)}
                 />
             </View>
 
             <RNPickerSelect
                 style={pickerSelectStyles}
-                onValueChange={(value) => console.log(value)}
+                onValueChange={(value) => setmeses(value)}
+                placeholder={{
+                    label: 'Selecciona el plazo',
+                    value: null,
+                }
+                }
                 items={[
-                    { label: 'Football', value: 'football' },
-                    { label: 'Baseball', value: 'baseball' },
-                    { label: 'Hockey', value: 'hockey' },
+                    { label: '3 meses', value: 3 },
+                    { label: '6 meses', value: 6 },
+                    { label: '9 meses', value: 9 },
+                    { label: '12 meses', value: 12 },
+                    { label: '24 meses', value: 24 },
+
                 ]}
 
             />
+
 
         </View>
     );
@@ -73,18 +85,28 @@ const styles = StyleSheet.create({
 
 const pickerSelectStyles = StyleSheet.create({
     inputIOS: {
-        fontSize: 16,
-
-
-    },
-    inputAndroid: {
-        fontSize: 18,
+        width: '100%',
+        fontSize: 1,
         paddingVertical: 8,
         paddingHorizontal: 10,
         borderWidth: 0.5,
         borderColor: "grey",
-        borderRadius: 100,
-        color: 'black',
+        borderRadius: 80,
+        color: '#ffffff',
+        paddingRight: 30,
+        backgroundColor: "white"
+
+
+    },
+    inputAndroid: {
+        width: '100%',
+        fontSize: 0,
+        paddingVertical: 8,
+        paddingHorizontal: 10,
+        borderWidth: 0.5,
+        borderColor: "grey",
+        borderRadius: 200,
+        color: '#000000',
         paddingRight: 30,
         backgroundColor: "white"
     }
